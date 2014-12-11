@@ -1,4 +1,4 @@
-package PO2;
+package s.s.opdracht2;
 
 import PO2Library.EdgeWeightedDigraph;
 import PO2Library.DirectedEdge;

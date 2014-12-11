@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package s.s.opdracht2;
+
+import PO2Library.EdgeWeightedDigraph;
 
 /**
  *
@@ -15,7 +12,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        EdgeWeightedDigraph EWD = new EdgeWeightedDigraph("i1");
+        Dijkstra dijkstra = new Dijkstra(EWD, EWD.getStart());
+        System.out.println(dijkstra.distTo(EWD.getEnd()));
+        EWD.tekenPad(dijkstra.pathTo(EWD.getEnd()));
+        EWD.save("i1-1");
+        
     }
     
 }
