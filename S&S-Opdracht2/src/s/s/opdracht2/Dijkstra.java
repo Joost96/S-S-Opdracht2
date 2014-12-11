@@ -3,6 +3,7 @@ package s.s.opdracht2;
 import PO2Library.EdgeWeightedDigraph;
 import PO2Library.DirectedEdge;
 import PO2Library.IndexMinPQ;
+import PO2Library.tileworld.I_Cost;
 import java.util.Stack;
 
 /**
@@ -13,6 +14,7 @@ public class Dijkstra {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
     private IndexMinPQ<Double> pq;    // priority queue of vertices
+    public int count;
 
     /**
      * Computes a shortest paths tree from <tt>s</tt> to every other vertex in
@@ -31,7 +33,7 @@ public class Dijkstra {
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
         for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.POSITIVE_INFINITY;
+            distTo[v] = I_Cost.INFINITY;
         distTo[s] = 0.0;
 
         // relax vertices in order of distance from s
@@ -39,8 +41,10 @@ public class Dijkstra {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.delMin();
-            for (DirectedEdge e : G.adj(v))
+            for (DirectedEdge e : G.adj(v)) {
                 relax(e);
+                count++;
+            }
         }
 
         // check optimality conditions
@@ -62,7 +66,7 @@ public class Dijkstra {
      * Returns the length of a shortest path from the source vertex <tt>s</tt> to vertex <tt>v</tt>.
      * @param v the destination vertex
      * @return the length of a shortest path from the source vertex <tt>s</tt> to vertex <tt>v</tt>;
-     *    <tt>Double.POSITIVE_INFINITY</tt> if no such path
+     *    <tt>I_Cost.INFINITY</tt> if no such path
      */
     public double distTo(int v) {
         return distTo[v];
@@ -75,7 +79,7 @@ public class Dijkstra {
      *    <tt>s</tt> to vertex <tt>v</tt>, and <tt>false</tt> otherwise
      */
     public boolean hasPathTo(int v) {
-        return distTo[v] < Double.POSITIVE_INFINITY;
+        return distTo[v] < I_Cost.INFINITY;
     }
 
     /**
@@ -114,7 +118,7 @@ public class Dijkstra {
         }
         for (int v = 0; v < G.V(); v++) {
             if (v == s) continue;
-            if (edgeTo[v] == null && distTo[v] != Double.POSITIVE_INFINITY) {
+            if (edgeTo[v] == null && distTo[v] != I_Cost.INFINITY) {
                 System.err.println("distTo[] and edgeTo[] inconsistent");
                 return false;
             }

@@ -17,6 +17,7 @@ public class Main {
         System.out.println(dijkstra.distTo(EWD.getEnd()));
         EWD.tekenPad(dijkstra.pathTo(EWD.getEnd()));
         EWD.save("i1-1");
+        System.out.println(dijkstra.count);
         
     }
     
