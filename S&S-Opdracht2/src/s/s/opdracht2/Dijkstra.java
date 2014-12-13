@@ -15,6 +15,7 @@ public class Dijkstra {
     private DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
     private IndexMinPQ<Double> pq;    // priority queue of vertices
     public int count;
+    public int edges;
 
     /**
      * Computes a shortest paths tree from <tt>s</tt> to every other vertex in
@@ -41,9 +42,10 @@ public class Dijkstra {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.delMin();
+            count++;
             for (DirectedEdge e : G.adj(v)) {
                 relax(e);
-                count++;
+                edges++;
             }
         }
 
@@ -94,6 +96,7 @@ public class Dijkstra {
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
+        System.out.print(","+path.size());
         return path;
     }
 
